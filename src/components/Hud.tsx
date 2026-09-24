@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { KEY_OPTIONS } from "../music/chords"
+import { ContentBrowserButton } from "./ContentBrowserButton"
 import { ShareButton } from "./ShareButton"
 import {
   FIXED_QUALITY_OPTIONS,
@@ -195,6 +196,7 @@ export function Hud({
         )}
         <div className={styles.statusRow}>
           <div className={styles.status}>{statusText}</div>
+          <ContentBrowserButton />
           <ShareButton />
         </div>
       </div>

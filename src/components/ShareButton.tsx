@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { generateShareCardBlob, getShareText } from "../lib/shareCard"
 import { SITE_URL } from "../lib/siteMeta"
-import styles from "./ShareButton.module.css"
+import { useClickOutside } from "../lib/useClickOutside"
+import styles from "./HudPopover.module.css"
 
 const hasWebShare = typeof navigator !== "undefined" && typeof navigator.share === "function"
 
@@ -9,15 +10,7 @@ export function ShareButton() {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const wrapRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    if (!open) return
-    const onPointer = (e: PointerEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false)
-    }
-    window.addEventListener("pointerdown", onPointer)
-    return () => window.removeEventListener("pointerdown", onPointer)
-  }, [open])
+  useClickOutside(wrapRef, open, () => setOpen(false))
 
   async function handleShare() {
     const text = getShareText()

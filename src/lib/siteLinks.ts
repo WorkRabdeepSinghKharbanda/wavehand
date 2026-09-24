@@ -5,7 +5,7 @@ export const DEVELOPER = {
   href: "https://github.com/WorkRabdeepSinghKharbanda",
 } as const
 
-export const GITHUB_REPO = "https://github.com/Ekmand/wavehand"
+export const GITHUB_REPO = "https://github.com/WorkRabdeepSinghKharbanda/wavehand"
 export const GITHUB_CONTRIBUTORS = `${GITHUB_REPO}/graphs/contributors`
 
 export const COMMUNITY_HOME = "https://community.wavehand.com"

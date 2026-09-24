@@ -17,7 +17,7 @@ export function ContentLayout({ children }: Props) {
         <nav className={styles.nav}>
           <Link to="/guides/play-chords-with-your-hands">Guide</Link>
           <Link to="/blog">Blog</Link>
-          <Link to="/best/ways-to-practice-chords">Practice tips</Link>
+          <Link to="/best">Practice tips</Link>
         </nav>
       </header>
       <main className={styles.main}>{children}</main>

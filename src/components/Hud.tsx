@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { KEY_OPTIONS } from "../music/chords"
+import { ShareButton } from "./ShareButton"
 import {
   FIXED_QUALITY_OPTIONS,
   type FixedMode,
@@ -141,7 +142,14 @@ export function Hud({
       </div>
 
       <div className={styles.topRight}>
-        <div className={styles.meter} aria-label="Volume meter">
+        <div
+          className={styles.meter}
+          role="meter"
+          aria-label="Volume meter"
+          aria-valuemin={0}
+          aria-valuemax={BARS}
+          aria-valuenow={litCount}
+        >
           {Array.from({ length: BARS }, (_, i) => (
             <div key={i} className={styles.bar} data-lit={i >= BARS - litCount} />
           ))}
@@ -185,7 +193,10 @@ export function Hud({
             ))}
           </div>
         )}
-        <div className={styles.status}>{statusText}</div>
+        <div className={styles.statusRow}>
+          <div className={styles.status}>{statusText}</div>
+          <ShareButton />
+        </div>
       </div>
 
       <div className={styles.cornerLinks}>

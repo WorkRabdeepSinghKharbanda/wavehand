@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import {
-  FilesetResolver,
-  HandLandmarker,
-  type HandLandmarkerResult,
-} from "@mediapipe/tasks-vision"
+import type { HandLandmarker, HandLandmarkerResult } from "@mediapipe/tasks-vision"
 import type { Handedness, Landmark } from "../music/gestures"
 
 export type TrackedHands = {
@@ -58,6 +54,9 @@ export function useHandTracking(videoRef: React.RefObject<HTMLVideoElement | nul
         if (cancelled) return
 
         setStatus("loading")
+        // Dynamic import — keeps @mediapipe/tasks-vision out of the initial page bundle.
+        const { FilesetResolver, HandLandmarker } = await import("@mediapipe/tasks-vision")
+        if (cancelled) return
         const vision = await FilesetResolver.forVisionTasks(WASM_URL)
         if (cancelled) return
         let landmarker: HandLandmarker

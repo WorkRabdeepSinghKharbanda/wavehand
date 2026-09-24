@@ -374,6 +374,12 @@ a.iconBtn {
   z-index: 1;
 }
 
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .status {
   font-size: 0.8rem;
   color: var(--text-muted);

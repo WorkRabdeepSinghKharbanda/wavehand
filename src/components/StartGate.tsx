@@ -13,7 +13,11 @@ export function StartGate({ onStart, cameraReady, cameraError }: Props) {
       className={styles.gate}
       onClick={onStart}
       disabled={!!cameraError}
-      aria-label="Enable audio and start"
+      aria-label={
+        cameraError
+          ? cameraError
+          : "WaveHand — play chords with your hands. Enable audio and start."
+      }
     >
       <h1 className={styles.brand}>WaveHand</h1>
       <p className={styles.tag}>

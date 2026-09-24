@@ -2,25 +2,28 @@
 
 # Branching strategy
 
-Personal solo project. No feature-branch/PR workflow — commits go straight to `main` (the actual default branch here, confirmed via `git branch --show-current`; not `master`).
+Personal solo project, owned by Rabdeep Singh. Originally cloned from `Ekmand/gesture-synth` (Ethan Dutson's repo); git history was later squashed to a single fresh commit authored by Rabdeep Singh — the old commit-by-commit history from that repo is intentionally not carried over, though the code it produced still is.
 
-## Two separate "live" things — don't confuse them
+## Remotes — don't confuse these
 
-- `origin` (`git remote -v`) is `github.com/Ekmand/gesture-synth` — the original author's repo. This is **not** something to push to; there's no confirmed write access, and it's what actually serves the real production gesturesynth.com site for other people. Renaming `gesturesynth.com` → `wavehand.com` in this codebase earlier was a text-only branding rename — it did **not** create a real `wavehand.com` domain or touch that live site.
-- The actual deploy target for this working copy is a separate Vercel project, `wavehand`, under the user's own Vercel account (`workrabdeepsinghkharbanda`), created via `vercel link --yes --project wavehand`. It has no GitHub integration (the auto-connect to `Ekmand/gesture-synth` failed on link, which is correct/expected — no access). Real live URL: **https://wavehand.vercel.app**.
+- `origin` = `github.com/WorkRabdeepSinghKharbanda/wavehand` — the real repo to push to.
+- `upstream` = `github.com/Ekmand/gesture-synth` — the original author's repo, kept only for reference. Never push here (no write access, and it's what actually serves the separate, real production gesturesynth.com site for other people). Renaming `gesturesynth.com` → `wavehand.com` in this codebase was a text-only branding rename — it never touched that live site or created a real `wavehand.com` domain.
 
-## Deploy
+## Direct push to `main` is blocked — not by this repo
 
-Not git-push-triggered. Deploy manually from this directory with:
+A **harness-level** `PreToolUse` hook (`~/.uniqode/engineering/hooks/pre-push-check.sh`, a Uniqode work-org default, not a git hook and not specific to this repo) blocks any `git push ... main`. `git push --no-verify` does **not** bypass it, since it intercepts the Bash tool call before git even runs. Workaround in use: push to a branch, currently `wavehand-updates`, and the user merges/promotes it into `main` on GitHub themselves. If this repo ever gets its own PreToolUse override, this whole section goes away and direct-to-main becomes simple again — check before assuming this workaround is still needed.
 
-```
-vercel --prod --yes
-```
+## Deploy — two independent targets, run them in parallel
 
-This builds and uploads the local working tree directly (no commit required, though committing first is still good practice). `.vercel/` holds the project link and is gitignored.
+There are two separate "ship it" actions, and they do NOT trigger each other — there's no CI/CD wiring between them:
 
-Then verify with `curl -s -o /dev/null -w "%{http_code}\n" https://wavehand.vercel.app` to confirm the new build is live (200), not stale.
+1. **`git push origin wavehand-updates`** — updates the GitHub repo.
+2. **`vercel --prod --yes`** — builds and uploads the local working tree directly to the live Vercel project (`wavehand`, under the user's own account `workrabdeepsinghkharbanda`, no GitHub integration — the auto-connect attempt failed on link, which is correct/expected). Real live URL: **https://wavehand.vercel.app**.
 
-If you need to confirm the deploy actually picked up the new build (not just that the site returns 200), check `curl -sI https://wavehand.vercel.app | grep etag` before and after — the etag changes once the new build is live.
+Since neither depends on the other finishing, **run both in the same message as parallel tool calls** (or at minimum, don't block one on the other) rather than sequentially waiting for the push before starting the deploy.
 
-If a real custom domain (e.g. an actually-purchased wavehand.com) is added later, add it in the Vercel dashboard for this project and update this file and any hardcoded URLs (sitemap, robots.txt, OG/canonical tags) to match — don't assume the domain from code comments.
+Verify the deploy specifically (a successful push says nothing about the live site):
+- `curl -s -o /dev/null -w "%{http_code}\n" https://wavehand.vercel.app` → should be 200.
+- If unsure whether a deploy actually picked up the latest build (not just that the site still returns 200 from a stale cache), compare `curl -sI https://wavehand.vercel.app | grep etag` before and after.
+
+If a real custom domain (e.g. an actually-purchased wavehand.com) is added later, set it up in the Vercel dashboard and update this file plus any hardcoded URLs (sitemap.xml, robots.txt, llms.txt, OG/canonical tags, `src/lib/siteMeta.ts`'s `SITE_URL`) to match — don't assume the domain from code comments.

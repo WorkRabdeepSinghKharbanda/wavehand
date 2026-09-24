@@ -1,0 +1,36 @@
+# WaveHand
+
+> WaveHand is a browser-based hand-tracking music instrument. It uses a webcam
+> and MediaPipe hand tracking to let you play chords with one hand and control
+> volume/tone/quality with the other (Gesture mode), or play a classic
+> theremin (Theremin mode) — entirely client-side, no install.
+
+WaveHand also includes a 4-track loop pedal, a guided "Learn mode" for
+practicing chord progressions from community-shared songs, and a settings
+sheet for remapping hand controls. It's aimed at anyone curious about
+hands-free/gesture-controlled music, from casual visitors to people learning
+chord theory.
+
+## Guides
+
+- [How to Play Chords With Your Hands](https://wavehand.vercel.app/guides/play-chords-with-your-hands): Full walkthrough of Gesture mode's hand mapping, setup requirements, and how to practice with Learn mode.
+
+## Blog
+
+- [How MediaPipe Turns Your Camera Into a Chord Controller](https://wavehand.vercel.app/blog/how-mediapipe-reads-your-hands): The actual finger/wrist-tilt signals WaveHand reads and how they become chords.
+- [The Theremin, Reinvented for a Webcam](https://wavehand.vercel.app/blog/theremin-reinvented-for-a-webcam): Theremin mode explained, with a short history of the real instrument it's modeled on.
+- [Why WaveHand Has a 4-Track Loop Pedal](https://wavehand.vercel.app/blog/why-wavehand-has-a-loop-pedal): How the loop pedal records and re-renders your playing, and why background playback needed a workaround.
+
+## Practice tips
+
+- [5 Ways to Practice Chords in WaveHand](https://wavehand.vercel.app/best/ways-to-practice-chords): Five real practice paths built into the app itself.
+
+## Tool
+
+- [WaveHand](https://wavehand.vercel.app/): The instrument itself. Requires a browser with camera access (Chrome or Edge recommended); no account needed.
+
+## Notes for automated agents
+
+- The instrument at `/` requires JavaScript and live camera access to function — there is nothing meaningful to index beyond this file and the static shell for non-JS crawlers.
+- All content on this domain is public; there are no personal-data or authenticated pages here.
+- The in-app "Learn a song" community library (song creation/sharing, user accounts) lives on a separate site, not this domain, and is out of scope of this file.

@@ -1,6 +1,7 @@
 import type { Guide } from "./contentTypes"
 
-// Adding a guide? Also add its URL to public/sitemap.xml and public/llms.txt in the same change.
+// Adding a guide? sitemap.xml is generated automatically (scripts/generate-sitemap.mjs) —
+// just add its URL to public/llms.txt in the same change.
 
 export const GUIDES: Guide[] = [
   {

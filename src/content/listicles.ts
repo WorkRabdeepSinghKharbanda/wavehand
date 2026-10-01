@@ -1,6 +1,7 @@
 import type { Listicle } from "./contentTypes"
 
-// Adding a listicle? Also add its URL to public/sitemap.xml and public/llms.txt in the same change.
+// Adding a listicle? sitemap.xml is generated automatically (scripts/generate-sitemap.mjs) —
+// just add its URL to public/llms.txt in the same change.
 
 export const LISTICLES: Listicle[] = [
   {

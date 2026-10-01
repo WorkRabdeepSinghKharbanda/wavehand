@@ -1,6 +1,7 @@
 import type { BlogPost } from "./contentTypes"
 
-// Adding a post? Also add its URL to public/sitemap.xml and public/llms.txt in the same change.
+// Adding a post? sitemap.xml is generated automatically (scripts/generate-sitemap.mjs) —
+// just add its URL to public/llms.txt in the same change.
 
 export const BLOG_POSTS: BlogPost[] = [
   {

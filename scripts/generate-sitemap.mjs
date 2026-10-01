@@ -6,13 +6,12 @@ import { writeFile } from "node:fs/promises"
 import { fileURLToPath } from "node:url"
 import { createServer } from "vite"
 
-const SITE_URL = "https://wavehand.vercel.app"
-
 async function main() {
   const server = await createServer({ server: { middlewareMode: true }, appType: "custom" })
   const { GUIDES } = await server.ssrLoadModule("/src/content/guides.ts")
   const { BLOG_POSTS } = await server.ssrLoadModule("/src/content/blogPosts.ts")
   const { LISTICLES } = await server.ssrLoadModule("/src/content/listicles.ts")
+  const { SITE_URL } = await server.ssrLoadModule("/src/lib/siteMeta.ts")
   await server.close()
 
   const today = new Date().toISOString().slice(0, 10)

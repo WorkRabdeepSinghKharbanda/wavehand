@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "prebuild": "node scripts/generate-sitemap.mjs",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run"
@@ -15,6 +16,7 @@
     "@supabase/supabase-js": "^2.112.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-router": "^7.18.4",
     "react-router-dom": "^7.18.4"
   },
   "devDependencies": {

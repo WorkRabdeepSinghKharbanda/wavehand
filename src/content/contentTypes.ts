@@ -8,6 +8,12 @@ export type FaqEntry = {
   a: string
 }
 
+/** A real screenshot under public/screenshots/ — never a scraped/rehosted internet image. */
+export type ContentImage = {
+  src: string
+  alt: string
+}
+
 export type Guide = {
   slug: string
   title: string
@@ -15,6 +21,7 @@ export type Guide = {
   kicker: string
   sections: GuideSection[]
   faq: FaqEntry[]
+  image?: ContentImage
 }
 
 export type BlogPost = {
@@ -22,7 +29,10 @@ export type BlogPost = {
   title: string
   description: string
   date: string
-  body: string[]
+  /** Structured sections (real H2 headings) instead of a flat paragraph list — needed for both SEO and readability at full length. */
+  sections: GuideSection[]
+  faq: FaqEntry[]
+  image?: ContentImage
 }
 
 export type ListicleItem = {
@@ -34,5 +44,9 @@ export type Listicle = {
   slug: string
   title: string
   description: string
+  /** Intro paragraphs before the list — context on who this is for and why. */
+  intro: string[]
   items: ListicleItem[]
+  faq: FaqEntry[]
+  image?: ContentImage
 }

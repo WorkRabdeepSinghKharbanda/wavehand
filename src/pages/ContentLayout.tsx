@@ -22,8 +22,17 @@ export function ContentLayout({ children }: Props) {
       </header>
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
-        WaveHand — play chords and theremin tones with your hands using webcam tracking.{" "}
-        <Link to="/">Try it now →</Link>
+        <p>
+          WaveHand — play chords and theremin tones with your hands using webcam tracking.{" "}
+          <Link to="/">Try it now →</Link>
+        </p>
+        <nav className={styles.footerNav} aria-label="Footer">
+          <Link to="/guides/play-chords-with-your-hands">Guide</Link>
+          <Link to="/blog">Blog</Link>
+          <Link to="/best">Practice tips</Link>
+          <Link to="/about">About</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+        </nav>
       </footer>
     </div>
   )

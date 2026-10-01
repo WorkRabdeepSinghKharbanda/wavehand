@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { LISTICLES } from "../content/listicles"
+import { SITE_URL } from "../lib/siteMeta"
 import { useSeo } from "../lib/useSeo"
+import { Breadcrumbs } from "./Breadcrumbs"
 import { ContentLayout } from "./ContentLayout"
 import prose from "./ContentProse.module.css"
 
@@ -12,6 +14,22 @@ export function ListicleIndexPage() {
     title: "Practice Tips — WaveHand",
     description: "Real, honest lists of WaveHand's own features — gestures, settings, and ways to practice.",
     path: "/best",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Practice tips", path: "/best" },
+    ],
+    jsonLd: [
+      {
+        "@type": "ItemList",
+        name: "WaveHand Practice Tips",
+        itemListElement: LISTICLES.map((l, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: l.title,
+          url: `${SITE_URL}/best/${l.slug}`,
+        })),
+      },
+    ],
   })
 
   const filtered = useMemo(() => {
@@ -24,6 +42,7 @@ export function ListicleIndexPage() {
 
   return (
     <ContentLayout>
+      <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Practice tips", path: "/best" }]} />
       <p className={prose.kicker}>Practice tips</p>
       <h1 className={prose.title}>Practice Tips &amp; Feature Guides</h1>
       <p className={prose.description}>

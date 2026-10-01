@@ -1,10 +1,14 @@
 import { useParams } from "react-router-dom"
+import { AdSlot } from "../components/AdSlot"
+import { BLOG_POSTS } from "../content/blogPosts"
 import { getGuide } from "../content/guides"
 import { SITE_URL } from "../lib/siteMeta"
 import { useSeo } from "../lib/useSeo"
+import { Breadcrumbs } from "./Breadcrumbs"
 import { ContentLayout } from "./ContentLayout"
 import prose from "./ContentProse.module.css"
 import { NotFoundPage } from "./NotFoundPage"
+import { RelatedLinks } from "./RelatedLinks"
 
 export function GuidePage() {
   const { slug } = useParams()
@@ -14,6 +18,13 @@ export function GuidePage() {
     title: guide ? `${guide.title} — WaveHand` : "Guide not found — WaveHand",
     description: guide?.description ?? "",
     path: guide ? `/guides/${guide.slug}` : "/guides",
+    image: guide?.image?.src,
+    breadcrumbs: guide
+      ? [
+          { name: "Home", path: "/" },
+          { name: "Guide", path: `/guides/${guide.slug}` },
+        ]
+      : undefined,
     jsonLd: guide
       ? [
           {
@@ -40,11 +51,21 @@ export function GuidePage() {
 
   if (!guide) return <NotFoundPage />
 
+  const related = BLOG_POSTS.slice(0, 3)
+
   return (
     <ContentLayout>
+      <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Guide", path: `/guides/${guide.slug}` }]} />
       <p className={prose.kicker}>{guide.kicker}</p>
       <h1 className={prose.title}>{guide.title}</h1>
       <p className={prose.description}>{guide.description}</p>
+
+      {guide.image && (
+        <>
+          <img className={prose.heroImage} src={guide.image.src} alt={guide.image.alt} />
+          <p className={prose.imageCaption}>{guide.image.alt}</p>
+        </>
+      )}
 
       {guide.sections.map((section) => (
         <section className={prose.section} key={section.heading}>
@@ -56,6 +77,8 @@ export function GuidePage() {
           ))}
         </section>
       ))}
+
+      <AdSlot />
 
       <section className={prose.section}>
         <h2 className={prose.sectionHeading}>FAQ</h2>
@@ -71,6 +94,11 @@ export function GuidePage() {
         Ready to try it? The instrument is live at{" "}
         <a href={SITE_URL}>{SITE_URL.replace("https://", "")}</a>.
       </p>
+
+      <RelatedLinks
+        heading="From the blog"
+        items={related.map((p) => ({ title: p.title, href: `/blog/${p.slug}` }))}
+      />
     </ContentLayout>
   )
 }

@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { BLOG_POSTS } from "../content/blogPosts"
+import { SITE_URL } from "../lib/siteMeta"
 import { useSeo } from "../lib/useSeo"
+import { Breadcrumbs } from "./Breadcrumbs"
 import { ContentLayout } from "./ContentLayout"
 import prose from "./ContentProse.module.css"
 
@@ -12,6 +14,22 @@ export function BlogIndexPage() {
     title: "Blog — WaveHand",
     description: "Short, practical posts on how WaveHand's hand-tracking instrument actually works.",
     path: "/blog",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+    ],
+    jsonLd: [
+      {
+        "@type": "ItemList",
+        name: "WaveHand Blog",
+        itemListElement: BLOG_POSTS.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: p.title,
+          url: `${SITE_URL}/blog/${p.slug}`,
+        })),
+      },
+    ],
   })
 
   const filtered = useMemo(() => {
@@ -24,6 +42,7 @@ export function BlogIndexPage() {
 
   return (
     <ContentLayout>
+      <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]} />
       <p className={prose.kicker}>Blog</p>
       <h1 className={prose.title}>WaveHand Blog</h1>
       <p className={prose.description}>

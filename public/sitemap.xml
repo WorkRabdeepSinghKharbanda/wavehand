@@ -97,6 +97,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://wavehand.vercel.app/blog/chord-practice-app-without-an-instrument</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wavehand.vercel.app/blog/loop-pedal-without-buying-one</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://wavehand.vercel.app/best</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>

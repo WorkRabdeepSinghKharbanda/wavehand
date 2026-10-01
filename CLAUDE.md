@@ -39,9 +39,17 @@ src/
   lib/practiceMatch.ts        Live gesture vs. practice target comparison
   lib/useSeo.ts                Per-route title/meta/canonical/OG/JSON-LD (content pages only; App.tsx also calls it for "/")
   lib/siteMeta.ts               SITE_URL — single source of truth for the real deployed domain
-  pages/                       Content pages (guide/blog/listicle/404), routed outside App.tsx — see brain/route/
-  content/                     Data-driven guide/blog/listicle arrays consumed by pages/
+  pages/                       Content pages (guide/blog/listicle/privacy/about/404), routed outside App.tsx — see brain/route/
+  content/                     Data-driven guide/blog/listicle arrays consumed by pages/ (sections + faq + optional image)
+  entry-server.tsx             SSR entry — prerenders content routes to static HTML at build (never "/")
+scripts/
+  generate-sitemap.mjs         prebuild: writes public/sitemap.xml from src/content/* via Vite ssrLoadModule
+  prerender.mjs                postbuild: writes dist/<route>/index.html per content route from dist-ssr
+public/screenshots/            Real app screenshots (headless Chrome) used as content hero/og images — never scraped images
+.claude/brain/seo/             Committed keyword research (keywords.json + keyword-index.md) — extend content from this
 ```
+
+Content rule: every blog post, listicle, and guide describes only what is verifiable from this codebase or genuinely public knowledge — no invented stats, quotes, benchmarks, or competitor claims. Images are real screenshots of the app only.
 
 Control flow, Gesture mode (the default path): `useHandTracking` → raw landmarks in `handsRef` → `music/gestures.ts` extracts finger/wrist signals every RAF tick in `App.tsx` → chord stabilizer smooths noisy per-frame reads → `music/chords.ts` turns the stabilized chord into frequencies → `SynthEngine.playNotes`. If a loop track is recording, the same per-frame output is also pushed into `LoopEngine` as a `LoopFrame`. If Learn/Practice is open, the live gesture is additionally compared against the current target (`practiceMatch`) and gates whether audio actually plays.
 

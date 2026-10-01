@@ -32,6 +32,13 @@ Full index with search: https://wavehand.vercel.app/blog
 - [Sharing a Camera App Without Sharing Your Camera](https://wavehand.vercel.app/blog/sharing-a-camera-app-without-sharing-your-camera): Why the share feature generates a branded card instead of a screenshot.
 - [Two Different Ways to Record What You Played](https://wavehand.vercel.app/blog/two-ways-to-record-what-you-played): The loop pedal vs. the global recorder.
 - [Reading Music Theory Through Your Hands](https://wavehand.vercel.app/blog/reading-music-theory-through-your-hands): How degree/quality/inversion map directly onto the two-hand gesture controls.
+- [Is There a Chord Practice App That Doesn't Need an Instrument?](https://wavehand.vercel.app/blog/chord-practice-app-without-an-instrument): An honest comparison of webcam chord practice against a real guitar or piano — what transfers and what doesn't.
+- [Can You Use a Loop Pedal Without Buying One?](https://wavehand.vercel.app/blog/loop-pedal-without-buying-one): What a browser loop station can do, how it compares to hardware, and where hardware still wins.
+
+## Site pages
+
+- [About](https://wavehand.vercel.app/about): Who built WaveHand and how to reach the developer.
+- [Privacy Policy](https://wavehand.vercel.app/privacy): What WaveHand does with your camera, cookies, and data.
 
 ## Practice tips
 
